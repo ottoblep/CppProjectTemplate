@@ -65,3 +65,6 @@ install_manifest.txt
 
 # Git
 !.gitignore
+
+#
+!SDL/*

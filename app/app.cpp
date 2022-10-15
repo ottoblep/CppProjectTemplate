@@ -1,11 +1,12 @@
 #include <iostream>
 #include "OptionParser/OptionParser.h"
+#include <SDL.h>
 
 using optparse::OptionParser;
 using namespace std;
 
 int main(int argc, char **argv) {
-    std::cout << "Its not THAT bad.\n";
+    cout << "Its not THAT bad.\n";
     OptionParser parser = OptionParser() .description("just an example");
 
     parser.add_option("-f", "--file") .dest("filename")
@@ -19,6 +20,26 @@ int main(int argc, char **argv) {
 
     if (options.get("verbose"))
         cout << options["filename"] << endl;
+
+    SDL_Init(SDL_INIT_VIDEO);
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+    SDL_CreateWindowAndRenderer(
+        500, 500, 0,
+        &window, &renderer);
+    SDL_ShowWindow(window);
+    SDL_Event event;
+    while (1)
+	{
+        SDL_PollEvent(&event);
+		switch (event.type)
+		{
+			case SDL_QUIT:
+                SDL_Quit();
+				exit(0);
+				break;
+		}
+	}
 
     return 0;
 }
